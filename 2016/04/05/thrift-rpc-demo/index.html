@@ -1,0 +1,724 @@
+<!doctype html>
+<html class="theme-next   use-motion ">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  <link href="//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=0.4.5.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="thrift," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.2" />
+
+
+
+
+
+
+<meta name="description" content="thrift-rpc的例子">
+<meta property="og:type" content="article">
+<meta property="og:title" content="thrift-rpc的例子">
+<meta property="og:url" content="http://lleon.me/2016/04/05/thrift-rpc-demo/index.html">
+<meta property="og:site_name" content="haolee's blog">
+<meta property="og:description" content="thrift-rpc的例子">
+<meta property="og:updated_time" content="2016-04-05T02:45:22.515Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="thrift-rpc的例子">
+<meta name="twitter:description" content="thrift-rpc的例子">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: 'post',
+    motion: true
+  };
+</script>
+
+  <title> thrift-rpc的例子 | haolee's blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  <!--[if lte IE 8]>
+  <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'>
+    <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+      <img src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820"
+           alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today or use other browser ,like chrome firefox safari."
+           style='margin-left:auto;margin-right:auto;display: block;'/>
+    </a>
+  </div>
+<![endif]-->
+  
+
+
+
+
+
+
+  <div class="container one-column page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">haolee's blog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">记录的不仅心路，更是梦想</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu ">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-th fa-fw"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-user fa-fw"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-heartbeat fa-fw"></i> <br />
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div id="content" class="content">
+          
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                thrift-rpc的例子
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            发表于
+            <time itemprop="dateCreated" datetime="2016-04-05T10:22:52+08:00" content="2016-04-05">
+              2016-04-05
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp; 分类于
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/RPC/" itemprop="url" rel="index">
+                    <span itemprop="name">RPC</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/04/05/thrift-rpc-demo/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/04/05/thrift-rpc-demo/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body">
+
+      
+      
+
+      
+        <span itemprop="articleBody"><h3 id="上一篇-thrift-idl-demo"><a href="#上一篇-thrift-idl-demo" class="headerlink" title="上一篇 thrift-idl-demo"></a>上一篇 thrift-idl-demo</h3><p><a href="../thrift-idl-demo/">thrift-idl-demo</a></p>
+<h3 id="实现接口"><a href="#实现接口" class="headerlink" title="实现接口"></a>实现接口</h3><p>实现idl service 生成的接口文件 BankApi<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.apache.thrift.TException;  </span><br><span class="line"><span class="keyword">import</span> com.leon.api.*;  </span><br><span class="line"><span class="comment">//映射注入例子，需要下面代码支持--去掉注释将自动映射注入</span></span><br><span class="line"><span class="comment">//@RpcImplDefined(ApiName = "BankApi",ApiIfaceClazz = BankApi.Iface.class,ApiProcessorClazz = BankApi.Processor.class)  </span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BankImpl</span> <span class="keyword">implements</span> <span class="title">BankApi</span>.<span class="title">Iface</span></span>&#123;</span><br><span class="line">     <span class="annotation">@Override</span></span><br><span class="line">     <span class="function"><span class="keyword">public</span> Bank <span class="title">getById</span><span class="params">(<span class="keyword">int</span> id)</span> <span class="keyword">throws</span> TException </span>&#123;</span><br><span class="line">          System.out.println(<span class="string">"----现实getById，或者业务方法"</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span>  Bank();<span class="comment">//thrift 是不能传递null的</span></span><br><span class="line">    &#125;</span><br><span class="line">    ..............</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>到这里，主要代码已经写完了，是不是很简单，只需要关注实现就ok,这样就能快速迭代代码，下面将是server和client的初步封装，这里就不提供简单demo了</p>
+<h3 id="初步封装"><a href="#初步封装" class="headerlink" title="初步封装"></a>初步封装</h3><p>初步封装thrift Rpc ,提供给开发人员进行复用</p>
+<h4 id="BaseRpcServer"><a href="#BaseRpcServer" class="headerlink" title="BaseRpcServer"></a>BaseRpcServer</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.leon.rpc;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Constructor;</span><br><span class="line"><span class="keyword">import</span> java.util.HashMap;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"><span class="keyword">import</span> java.util.Map;</span><br><span class="line"><span class="keyword">import</span> java.util.Map.Entry;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.apache.thrift.TMultiplexedProcessor;</span><br><span class="line"><span class="keyword">import</span> org.apache.thrift.TProcessor;</span><br><span class="line"><span class="keyword">import</span> org.apache.thrift.protocol.TBinaryProtocol;</span><br><span class="line"><span class="keyword">import</span> org.apache.thrift.protocol.TBinaryProtocol.Factory;</span><br><span class="line"><span class="keyword">import</span> org.apache.thrift.server.TServer;</span><br><span class="line"><span class="keyword">import</span> org.apache.thrift.server.TThreadPoolServer;</span><br><span class="line"><span class="keyword">import</span> org.apache.thrift.server.TThreadPoolServer.Args;</span><br><span class="line"><span class="keyword">import</span> org.apache.thrift.transport.TServerSocket;</span><br><span class="line"><span class="keyword">import</span> org.apache.thrift.transport.TTransportException;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.leon.rpc.annotation.RpcImplDefined;</span><br><span class="line"><span class="keyword">import</span> com.leon.rpc.annotation.RpcScan;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span><br><span class="line"> * thrift server base</span><br><span class="line"> * <span class="doctag">@author</span> leon</span><br><span class="line"> *</span><br><span class="line"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">BaseRpcServer</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> BaseRpcConfig config;</span><br><span class="line">    <span class="keyword">private</span> TServerSocket serverTransport;</span><br><span class="line">    <span class="keyword">private</span> Factory proFactory;</span><br><span class="line">    <span class="keyword">private</span> TMultiplexedProcessor processor;</span><br><span class="line">    <span class="keyword">private</span> Map&lt;String,TProcessor&gt; service_processor_map = <span class="keyword">new</span> HashMap&lt;String,TProcessor&gt;();   <span class="comment">//需要注册的api容器</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">/**</span><br><span class="line">     * 初始化</span><br><span class="line">     * <span class="doctag">@param</span> config</span><br><span class="line">     * <span class="doctag">@throws</span> TTransportException</span><br><span class="line">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">init</span><span class="params">(BaseRpcConfig config)</span> <span class="keyword">throws</span> TTransportException</span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.config=config;</span><br><span class="line">        serverTransport = <span class="keyword">new</span> TServerSocket(config.getPort());  <span class="comment">//设置服务端口</span></span><br><span class="line">        proFactory = <span class="keyword">new</span> TBinaryProtocol.Factory();  <span class="comment">//设置协议</span></span><br><span class="line">        processor = <span class="keyword">new</span> TMultiplexedProcessor();</span><br><span class="line">        <span class="keyword">this</span>.addProcessor();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">/**</span><br><span class="line">     * 检查</span><br><span class="line">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">isInit</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(<span class="keyword">null</span> == config)&#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(<span class="string">"server 没有初始化..."</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">/**</span><br><span class="line">     * 启动thrift服务</span><br><span class="line">     * <span class="doctag">@throws</span> TTransportException</span><br><span class="line">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">start</span><span class="params">()</span></span>&#123;</span><br><span class="line">        isInit();</span><br><span class="line">        registerProcessor();</span><br><span class="line">        <span class="keyword">for</span> (Entry&lt;String,TProcessor&gt; entry : service_processor_map.entrySet()) &#123;</span><br><span class="line">                System.out.println(String.format(<span class="string">"loading  %s  ..."</span>, entry.getKey()));  </span><br><span class="line">            processor.registerProcessor(entry.getKey(), entry.getValue());</span><br><span class="line">        &#125;</span><br><span class="line">        TServer server = <span class="keyword">new</span> TThreadPoolServer(<span class="keyword">new</span> Args(serverTransport).protocolFactory(proFactory).processor(processor));</span><br><span class="line">        server.setServerEventHandler(<span class="keyword">new</span> RpcServerEventHandler());   <span class="comment">//ip监控，可以去掉</span></span><br><span class="line">        System.out.println(<span class="string">"Start server on port "</span>+config.getPort()+<span class="string">"..."</span>);</span><br><span class="line">        server.serve();</span><br><span class="line">       </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">/**</span><br><span class="line">     * 添加api服务</span><br><span class="line">     * <span class="doctag">@param</span> apiName</span><br><span class="line">     * <span class="doctag">@param</span> processor</span><br><span class="line">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">addProcessor</span><span class="params">(String apiName,TProcessor processor)</span></span>&#123;</span><br><span class="line">        service_processor_map.put(apiName, processor);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">/**</span><br><span class="line">     * 注解注入</span><br><span class="line">     * 没有做配置错误的异常处理&lt;br&gt;</span><br><span class="line">     * <span class="doctag">@param</span> packageName</span><br><span class="line">     */</span></span><br><span class="line">    <span class="annotation">@SuppressWarnings</span>(&#123; <span class="string">"rawtypes"</span>, <span class="string">"unchecked"</span> &#125;)</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">addProcessor</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(<span class="keyword">null</span>==config.getApiImplPath()||<span class="string">""</span>.equals(config.getApiImplPath()))&#123;</span><br><span class="line">             System.out.println(<span class="string">"没有配置扫描...跳过自动注入..."</span>);</span><br><span class="line">            <span class="keyword">return</span> ;</span><br><span class="line">        &#125;</span><br><span class="line">        RpcScan scan = <span class="keyword">new</span> RpcScan();</span><br><span class="line">        List&lt;Class&lt;?&gt;&gt; clazz = scan.scan(config.getApiImplPath());</span><br><span class="line">        <span class="keyword">for</span> (Class&lt;?&gt; clas : clazz) &#123;</span><br><span class="line">            RpcImplDefined rid = clas.getAnnotation(RpcImplDefined.class);</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                Constructor&lt;?&gt; constructor = rid.ApiProcessorClazz().getConstructor(<span class="keyword">new</span> Class[]&#123;rid.ApiIfaceClazz()&#125;);</span><br><span class="line">                    LogProxyHandler proxy =<span class="keyword">new</span> LogProxyHandler(clas.newInstance());</span><br><span class="line">                    addProcessor(rid.ApiName(), (TProcessor)constructor.newInstance(proxy.createProxy()));</span><br><span class="line">                    <span class="comment">//addProcessor(rid.ApiName(), (TProcessor)constructor.newInstance(clas.newInstance()));</span></span><br><span class="line">            &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">/**</span><br><span class="line">     * 登记需要的api服务&lt;br&gt;</span><br><span class="line">     * TProcessor t1 = new BankApi.Processor(new BankImpl()); //BankApi是你的接口,BankImpl是你的接口实现&lt;br&gt;</span><br><span class="line">     * addProcessor("BankApi",t1);//BankApi是你取的登记名称,尽量通用,该名字要在client中使用的&lt;br&gt;</span><br><span class="line">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">registerProcessor</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="BaseRpcClient"><a href="#BaseRpcClient" class="headerlink" title="BaseRpcClient"></a>BaseRpcClient</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.leon.rpc;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Constructor;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.apache.thrift.protocol.TBinaryProtocol;</span><br><span class="line"><span class="keyword">import</span> org.apache.thrift.protocol.TMultiplexedProtocol;</span><br><span class="line"><span class="keyword">import</span> org.apache.thrift.protocol.TProtocol;</span><br><span class="line"><span class="keyword">import</span> org.apache.thrift.transport.TSocket;</span><br><span class="line"><span class="keyword">import</span> org.apache.thrift.transport.TTransport;</span><br><span class="line"><span class="keyword">import</span> org.apache.thrift.transport.TTransportException;</span><br><span class="line"><span class="comment">/**</span><br><span class="line"> * thrift client base</span><br><span class="line"> * <span class="doctag">@author</span> leon</span><br><span class="line"> *</span><br><span class="line"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BaseRpcClient</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> BaseRpcConfig config;</span><br><span class="line">    <span class="keyword">private</span> TTransport transport;</span><br><span class="line">    <span class="keyword">private</span> TProtocol protocol;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">init</span><span class="params">(BaseRpcConfig config)</span> <span class="keyword">throws</span> TTransportException</span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.config = config;</span><br><span class="line">        transport = <span class="keyword">new</span> TSocket(config.getHost(), config.getPort());</span><br><span class="line">        protocol = <span class="keyword">new</span> TBinaryProtocol(transport); <span class="comment">// 设置传输协议为 TBinaryProtocol</span></span><br><span class="line">        OpenTransport();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">isInit</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(<span class="keyword">null</span> == config)&#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(<span class="string">"client 没有初始化..."</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">/**</span><br><span class="line">     * </span><br><span class="line">     * 打开资源</span><br><span class="line">     * <span class="doctag">@throws</span> TTransportException</span><br><span class="line">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">OpenTransport</span><span class="params">()</span> <span class="keyword">throws</span> TTransportException </span>&#123;</span><br><span class="line">        transport.open();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span><br><span class="line">     * 关闭资源</span><br><span class="line">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">CloseTransport</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        transport.close();</span><br><span class="line">    &#125;</span><br><span class="line">        <span class="comment">//todo--断线重连</span></span><br><span class="line">    <span class="comment">/**</span><br><span class="line">     * </span><br><span class="line">     * <span class="doctag">@param</span> clazz  接口的class</span><br><span class="line">     * <span class="doctag">@param</span> ApiName  在server中登记的Name,如果你不知道,请找你的server开发者,这个名字应该由你们两者确定</span><br><span class="line">     * <span class="doctag">@return</span> </span><br><span class="line">     * <span class="doctag">@throws</span> Exception</span><br><span class="line">     */</span></span><br><span class="line">    <span class="keyword">public</span> &lt;T&gt; <span class="function">T <span class="title">getApiClient</span><span class="params">(Class&lt;T&gt; clazz,String ApiName)</span> <span class="keyword">throws</span> Exception</span>&#123;</span><br><span class="line">        isInit();</span><br><span class="line">        Constructor&lt;?&gt; c1 = clazz.getConstructor(<span class="keyword">new</span> Class[] &#123;TProtocol.class&#125;); </span><br><span class="line">        <span class="annotation">@SuppressWarnings</span>(<span class="string">"unchecked"</span>)</span><br><span class="line">        T client = (T) c1.newInstance(<span class="keyword">new</span> TMultiplexedProtocol(protocol, ApiName));</span><br><span class="line">        <span class="keyword">return</span> client;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="BaseRpcConfig"><a href="#BaseRpcConfig" class="headerlink" title="BaseRpcConfig"></a>BaseRpcConfig</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.leon.rpc;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> yao.config.exception.ConfigException;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BaseRpcConfig</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> port;  <span class="comment">//端口</span></span><br><span class="line">    <span class="keyword">private</span> String host;  <span class="comment">//地址</span></span><br><span class="line">    <span class="keyword">private</span> String apiImplPath;  <span class="comment">//api接口实现包地址</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getApiImplPath</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> apiImplPath;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setApiImplPath</span><span class="params">(String apiImplPath)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.apiImplPath = apiImplPath;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getPort</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> port;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setPort</span><span class="params">(<span class="keyword">int</span> port)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.port = port;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getHost</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> host;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setHost</span><span class="params">(String host)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.host = host;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">BaseRpcConfig</span><span class="params">()</span></span>&#123;</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//////你的配置文件，我这里删除了</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">BaseRpcConfig</span><span class="params">(String fileName)</span> <span class="keyword">throws</span> ConfigException, IOException</span>&#123;</span><br><span class="line">                <span class="comment">//todo</span></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>其实到这里，上面的已经能正常使用了，报错的都是些别的服务，直接注释掉就行<br>下面就说说这些服务</p>
+<p>###ip检测<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.leon.rpc;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.apache.thrift.protocol.TProtocol;</span><br><span class="line"><span class="keyword">import</span> org.apache.thrift.server.ServerContext;</span><br><span class="line"><span class="keyword">import</span> org.apache.thrift.server.TServerEventHandler;</span><br><span class="line"><span class="keyword">import</span> org.apache.thrift.transport.TSocket;</span><br><span class="line"><span class="keyword">import</span> org.apache.thrift.transport.TTransport;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span><br><span class="line"> * <span class="doctag">@author</span> leon</span><br><span class="line"> * </span><br><span class="line"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RpcServerEventHandler</span> <span class="keyword">implements</span> <span class="title">TServerEventHandler</span> </span>&#123;</span><br><span class="line">    <span class="annotation">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">preServe</span><span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="annotation">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> ServerContext <span class="title">createContext</span><span class="params">(TProtocol input, TProtocol output)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="annotation">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">deleteContext</span><span class="params">(ServerContext serverContext, TProtocol input, TProtocol output)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="annotation">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">processContext</span><span class="params">(ServerContext serverContext, TTransport inputTransport, TTransport outputTransport)</span> </span>&#123;</span><br><span class="line">        TSocket socket = (TSocket)inputTransport;</span><br><span class="line">        LoggerUtility.beforeInvoke();</span><br><span class="line">        LoggerUtility.noticeLog(<span class="string">"request from ip is %s "</span>, socket.getSocket().getRemoteSocketAddress());  <span class="comment">//动态代理，其实这里可以直接写入log4j2</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="动态代理"><a href="#动态代理" class="headerlink" title="动态代理"></a>动态代理</h4><p>  写到这，我其实写不下去了，我内心是抗拒的，因为这与thrift已经没有多大关系了，但是原来笔记是直接写在别的地方，所有想想还是在写下动态代理<br>，知道cglib的其实后面不用看了<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.leon.rpc;</span><br><span class="line"><span class="comment">/**</span><br><span class="line"> * <span class="doctag">@author</span> leon</span><br><span class="line"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LoggerUtility</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> ThreadLocal&lt;StringBuilder&gt; thread_local = <span class="keyword">new</span> ThreadLocal&lt;&gt;();</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">beforeInvoke</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        StringBuilder sb = thread_local.get();</span><br><span class="line">        <span class="keyword">if</span> (sb == <span class="keyword">null</span>) &#123;</span><br><span class="line">            sb = <span class="keyword">new</span> StringBuilder();</span><br><span class="line">            thread_local.set(sb);</span><br><span class="line">        &#125;</span><br><span class="line">        sb.delete(<span class="number">0</span>, sb.length());</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">returnInvoke</span><span class="params">(Class c)</span> </span>&#123;</span><br><span class="line">        StringBuilder sb = thread_local.get();</span><br><span class="line">        <span class="keyword">if</span> (sb != <span class="keyword">null</span>) &#123;</span><br><span class="line">            System.out.println(  sb.toString());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">throwableInvoke</span><span class="params">(Class c, String fmt, Object... args)</span> </span>&#123;</span><br><span class="line">        StringBuilder sb = thread_local.get();</span><br><span class="line">        <span class="keyword">if</span> (sb != <span class="keyword">null</span>) &#123;</span><br><span class="line">            System.out.println(  sb.toString() + <span class="string">" "</span> + String.format(fmt, args));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">noticeLog</span><span class="params">(String fmt, Object... args)</span> </span>&#123;</span><br><span class="line">        StringBuilder sb = thread_local.get();</span><br><span class="line">        <span class="keyword">if</span> (sb != <span class="keyword">null</span>) &#123;</span><br><span class="line">            sb.append(String.format(fmt, args));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.leon.rpc;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.InvocationHandler;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Method;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Proxy;</span><br><span class="line"><span class="keyword">import</span> java.util.Arrays;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span><br><span class="line"> * <span class="doctag">@author</span> leon</span><br><span class="line"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LogProxyHandler</span>&lt;<span class="title">T</span>&gt; <span class="keyword">implements</span> <span class="title">InvocationHandler</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> T instance;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">LogProxyHandler</span><span class="params">(T instance)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.instance = instance;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">createProxy</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> Proxy.newProxyInstance(instance.getClass().getClassLoader(), instance.getClass().getInterfaces(), <span class="keyword">this</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="annotation">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">invoke</span><span class="params">(Object proxy, Method method, Object[] args)</span> <span class="keyword">throws</span> Throwable </span>&#123;</span><br><span class="line">        LoggerUtility.beforeInvoke();</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            Long current_time = System.currentTimeMillis();</span><br><span class="line">            LoggerUtility.noticeLog(<span class="string">"invoke method is %s param is %s \r\n"</span>, method.getName(), Arrays.toString(args));</span><br><span class="line">            Object res = method.invoke(instance, args);</span><br><span class="line">            LoggerUtility.noticeLog(<span class="string">"cost time is %s \r\n"</span>, System.currentTimeMillis() - current_time);</span><br><span class="line">            LoggerUtility.returnInvoke(instance.getClass());</span><br><span class="line">            <span class="keyword">return</span> res;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Throwable e) &#123;</span><br><span class="line">            LoggerUtility.throwableInvoke(proxy.getClass(), <span class="string">"[result = exception: &#123;%s&#125;"</span>, e.getMessage());</span><br><span class="line">            <span class="keyword">throw</span> e;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="annotation"><a href="#annotation" class="headerlink" title="annotation"></a>annotation</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.leon.rpc.annotation;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.lang.annotation.ElementType;</span><br><span class="line"><span class="keyword">import</span> java.lang.annotation.Retention;</span><br><span class="line"><span class="keyword">import</span> java.lang.annotation.RetentionPolicy;</span><br><span class="line"><span class="keyword">import</span> java.lang.annotation.Target;</span><br><span class="line"><span class="comment">/**</span><br><span class="line"> * api注解注入</span><br><span class="line"> * create by leon on 2016-03-28</span><br><span class="line"> * <span class="doctag">@author</span> leon</span><br><span class="line"> *</span><br><span class="line"> */</span></span><br><span class="line"><span class="annotation">@Target</span>(&#123;ElementType.TYPE&#125;)</span><br><span class="line"><span class="annotation">@Retention</span>(RetentionPolicy.RUNTIME)</span><br><span class="line"><span class="keyword">public</span> <span class="annotation">@interface</span> RpcImplDefined &#123;</span><br><span class="line">     Class&lt;?&gt; ApiIfaceClazz();</span><br><span class="line">     Class&lt;?&gt; ApiProcessorClazz();</span><br><span class="line">     <span class="function">String <span class="title">ApiName</span><span class="params">()</span></span>;</span><br><span class="line">     <span class="function">String <span class="title">description</span><span class="params">()</span> <span class="keyword">default</span> ""</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Scan"><a href="#Scan" class="headerlink" title="Scan"></a>Scan</h3><p>有了annotation,也该有自动扫描注入<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.leon.rpc.annotation;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"><span class="comment">/**</span><br><span class="line"> * 接口扫描     </span><br><span class="line"> * create by leon on 2016-03-28</span><br><span class="line"> * <span class="doctag">@author</span> leon</span><br><span class="line"> *</span><br><span class="line"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Scan</span> </span>&#123;</span><br><span class="line">    List&lt;Class&lt;?&gt;&gt; scan(String packageName);</span><br><span class="line">    &lt;T&gt;<span class="function"><span class="keyword">boolean</span> <span class="title">inspect</span><span class="params">(Class&lt;T&gt; clazz)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.leon.rpc.annotation;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"><span class="comment">/**</span><br><span class="line"> * class类扫描</span><br><span class="line"> * <span class="doctag">@author</span> leon</span><br><span class="line"> *</span><br><span class="line"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RpcScan</span> <span class="keyword">implements</span> <span class="title">Scan</span></span>&#123;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="annotation">@Override</span></span><br><span class="line">    <span class="keyword">public</span> &lt;T&gt; <span class="function"><span class="keyword">boolean</span> <span class="title">inspect</span><span class="params">(Class&lt;T&gt; clazz)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> clazz.getAnnotation(RpcImplDefined.class)!=<span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="annotation">@Override</span></span><br><span class="line">    <span class="keyword">public</span> List&lt;Class&lt;?&gt;&gt; scan(String packageName) &#123;</span><br><span class="line">        List&lt;Class&lt;?&gt;&gt; list = <span class="keyword">new</span> ArrayList&lt;Class&lt;?&gt;&gt;();</span><br><span class="line">        List&lt;Class&lt;?&gt;&gt; classes = ClassUtil.getClasses(packageName);</span><br><span class="line">        <span class="keyword">for</span> (Class&lt;?&gt; clas :classes) &#123;</span><br><span class="line">            <span class="keyword">if</span>(<span class="keyword">this</span>.inspect(clas))&#123;</span><br><span class="line">                list.add(clas);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// TODO Auto-generated method stub</span></span><br><span class="line">        <span class="keyword">return</span> list;</span><br><span class="line">    &#125;   </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="ClassUtil"><a href="#ClassUtil" class="headerlink" title="ClassUtil"></a>ClassUtil</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.leon.rpc.annotation;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.File;  </span><br><span class="line"><span class="keyword">import</span> java.io.FileFilter;  </span><br><span class="line"><span class="keyword">import</span> java.io.IOException;  </span><br><span class="line"><span class="keyword">import</span> java.net.JarURLConnection;  </span><br><span class="line"><span class="keyword">import</span> java.net.URL;  </span><br><span class="line"><span class="keyword">import</span> java.net.URLDecoder;  </span><br><span class="line"><span class="keyword">import</span> java.util.ArrayList;  </span><br><span class="line"><span class="keyword">import</span> java.util.Enumeration;  </span><br><span class="line"><span class="keyword">import</span> java.util.List;    </span><br><span class="line"><span class="keyword">import</span> java.util.jar.JarEntry;  </span><br><span class="line"><span class="keyword">import</span> java.util.jar.JarFile;  </span><br><span class="line"><span class="comment">/** </span><br><span class="line"> * 类相关的工具类 </span><br><span class="line"> * 添加这个util主要是用来扫描映射注解</span><br><span class="line"> *  </span><br><span class="line"> */</span>  </span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ClassUtil</span> </span>&#123;  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception</span>&#123;  </span><br><span class="line">        List&lt;Class&lt;?&gt;&gt; classes = ClassUtil.getClasses(<span class="string">"demo"</span>);  </span><br><span class="line">        <span class="keyword">for</span> (Class&lt;?&gt; clas :classes) &#123;  </span><br><span class="line">            <span class="keyword">if</span>(clas.getAnnotation(RpcImplDefined.class)!=<span class="keyword">null</span>)&#123;</span><br><span class="line">                  System.out.println(clas.getName());  </span><br><span class="line">            &#125;</span><br><span class="line">          </span><br><span class="line">        &#125;  </span><br><span class="line">    &#125;  </span><br><span class="line">    <span class="comment">/** </span><br><span class="line">     * 取得某个接口下所有实现这个接口的类 </span><br><span class="line">     * */</span>  </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> List&lt;Class&lt;?&gt;&gt; getAllClassByInterface(Class&lt;?&gt; c) &#123;  </span><br><span class="line">            List&lt;Class&lt;?&gt;&gt;  returnClassList = <span class="keyword">null</span>;  </span><br><span class="line">              </span><br><span class="line">            <span class="keyword">if</span>(c.isInterface()) &#123;  </span><br><span class="line">                <span class="comment">// 获取当前的包名  </span></span><br><span class="line">                String packageName = c.getPackage().getName();  </span><br><span class="line">                <span class="comment">// 获取当前包下以及子包下所以的类  </span></span><br><span class="line">                List&lt;Class&lt;?&gt;&gt; allClass = getClasses(packageName);  </span><br><span class="line">                <span class="keyword">if</span>(allClass != <span class="keyword">null</span>) &#123;  </span><br><span class="line">                    returnClassList = <span class="keyword">new</span> ArrayList&lt;Class&lt;?&gt;&gt;();  </span><br><span class="line">                    <span class="keyword">for</span>(Class&lt;?&gt; classes : allClass) &#123;  </span><br><span class="line">                        <span class="comment">// 判断是否是同一个接口  </span></span><br><span class="line">                        <span class="keyword">if</span>(c.isAssignableFrom(classes)) &#123;  </span><br><span class="line">                            <span class="comment">// 本身不加入进去  </span></span><br><span class="line">                            <span class="keyword">if</span>(!c.equals(classes)) &#123;  </span><br><span class="line">                                returnClassList.add(classes);          </span><br><span class="line">                            &#125;  </span><br><span class="line">                        &#125;  </span><br><span class="line">                    &#125;  </span><br><span class="line">                &#125;  </span><br><span class="line">            &#125;  </span><br><span class="line">              </span><br><span class="line">            <span class="keyword">return</span> returnClassList;  </span><br><span class="line">        &#125;  </span><br><span class="line">  </span><br><span class="line">      </span><br><span class="line">    <span class="comment">/* </span><br><span class="line">     * 取得某一类所在包的所有类名 不含迭代 </span><br><span class="line">     */</span>  </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> String[] getPackageAllClassName(String classLocation, String packageName)&#123;  </span><br><span class="line">        <span class="comment">//将packageName分解  </span></span><br><span class="line">        String[] packagePathSplit = packageName.split(<span class="string">"[.]"</span>);  </span><br><span class="line">        String realClassLocation = classLocation;  </span><br><span class="line">        <span class="keyword">int</span> packageLength = packagePathSplit.length;  </span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i&lt; packageLength; i++)&#123;  </span><br><span class="line">            realClassLocation = realClassLocation + File.separator+packagePathSplit[i];  </span><br><span class="line">        &#125;  </span><br><span class="line">        File packeageDir = <span class="keyword">new</span> File(realClassLocation);  </span><br><span class="line">        <span class="keyword">if</span>(packeageDir.isDirectory())&#123;  </span><br><span class="line">            String[] allClassName = packeageDir.list();  </span><br><span class="line">            <span class="keyword">return</span> allClassName;  </span><br><span class="line">        &#125;  </span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;  </span><br><span class="line">    &#125;  </span><br><span class="line">      </span><br><span class="line">    <span class="comment">/** </span><br><span class="line">     * 从包package中获取所有的Class </span><br><span class="line">     * <span class="doctag">@param</span> pack </span><br><span class="line">     * <span class="doctag">@return</span> </span><br><span class="line">     */</span>  </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> List&lt;Class&lt;?&gt;&gt; getClasses(String packageName)&#123;  </span><br><span class="line">          </span><br><span class="line">        <span class="comment">//第一个class类的集合  </span></span><br><span class="line">        List&lt;Class&lt;?&gt;&gt; classes = <span class="keyword">new</span> ArrayList&lt;Class&lt;?&gt;&gt;();  </span><br><span class="line">        <span class="comment">//是否循环迭代  </span></span><br><span class="line">        <span class="keyword">boolean</span> recursive = <span class="keyword">true</span>;  </span><br><span class="line">        <span class="comment">//获取包的名字 并进行替换  </span></span><br><span class="line">        String packageDirName = packageName.replace(<span class="string">'.'</span>, <span class="string">'/'</span>);  </span><br><span class="line">        <span class="comment">//定义一个枚举的集合 并进行循环来处理这个目录下的things  </span></span><br><span class="line">        Enumeration&lt;URL&gt; dirs;  </span><br><span class="line">        <span class="keyword">try</span> &#123;  </span><br><span class="line">            dirs = Thread.currentThread().getContextClassLoader().getResources(packageDirName);  </span><br><span class="line">            <span class="comment">//循环迭代下去  </span></span><br><span class="line">            <span class="keyword">while</span> (dirs.hasMoreElements())&#123;  </span><br><span class="line">                <span class="comment">//获取下一个元素  </span></span><br><span class="line">                URL url = dirs.nextElement();  </span><br><span class="line">                <span class="comment">//得到协议的名称  </span></span><br><span class="line">                String protocol = url.getProtocol();  </span><br><span class="line">                <span class="comment">//如果是以文件的形式保存在服务器上  </span></span><br><span class="line">                <span class="keyword">if</span> (<span class="string">"file"</span>.equals(protocol)) &#123;  </span><br><span class="line">                    <span class="comment">//获取包的物理路径  </span></span><br><span class="line">                    String filePath = URLDecoder.decode(url.getFile(), <span class="string">"UTF-8"</span>);  </span><br><span class="line">                    <span class="comment">//以文件的方式扫描整个包下的文件 并添加到集合中  </span></span><br><span class="line">                    findAndAddClassesInPackageByFile(packageName, filePath, recursive, classes);  </span><br><span class="line">                &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="string">"jar"</span>.equals(protocol))&#123;  </span><br><span class="line">                    <span class="comment">//如果是jar包文件   </span></span><br><span class="line">                    <span class="comment">//定义一个JarFile  </span></span><br><span class="line">                    JarFile jar;  </span><br><span class="line">                    <span class="keyword">try</span> &#123;  </span><br><span class="line">                        <span class="comment">//获取jar  </span></span><br><span class="line">                        jar = ((JarURLConnection) url.openConnection()).getJarFile();  </span><br><span class="line">                        <span class="comment">//从此jar包 得到一个枚举类  </span></span><br><span class="line">                        Enumeration&lt;JarEntry&gt; entries = jar.entries();  </span><br><span class="line">                        <span class="comment">//同样的进行循环迭代  </span></span><br><span class="line">                        <span class="keyword">while</span> (entries.hasMoreElements()) &#123;  </span><br><span class="line">                            <span class="comment">//获取jar里的一个实体 可以是目录 和一些jar包里的其他文件 如META-INF等文件  </span></span><br><span class="line">                            JarEntry entry = entries.nextElement();  </span><br><span class="line">                            String name = entry.getName();  </span><br><span class="line">                            <span class="comment">//如果是以/开头的  </span></span><br><span class="line">                            <span class="keyword">if</span> (name.charAt(<span class="number">0</span>) == <span class="string">'/'</span>) &#123;  </span><br><span class="line">                                <span class="comment">//获取后面的字符串  </span></span><br><span class="line">                                name = name.substring(<span class="number">1</span>);  </span><br><span class="line">                            &#125;  </span><br><span class="line">                            <span class="comment">//如果前半部分和定义的包名相同  </span></span><br><span class="line">                            <span class="keyword">if</span> (name.startsWith(packageDirName)) &#123;  </span><br><span class="line">                                <span class="keyword">int</span> idx = name.lastIndexOf(<span class="string">'/'</span>);  </span><br><span class="line">                                <span class="comment">//如果以"/"结尾 是一个包  </span></span><br><span class="line">                                <span class="keyword">if</span> (idx != -<span class="number">1</span>) &#123;  </span><br><span class="line">                                    <span class="comment">//获取包名 把"/"替换成"."  </span></span><br><span class="line">                                    packageName = name.substring(<span class="number">0</span>, idx).replace(<span class="string">'/'</span>, <span class="string">'.'</span>);  </span><br><span class="line">                                &#125;  </span><br><span class="line">                                <span class="comment">//如果可以迭代下去 并且是一个包  </span></span><br><span class="line">                                <span class="keyword">if</span> ((idx != -<span class="number">1</span>) || recursive)&#123;  </span><br><span class="line">                                    <span class="comment">//如果是一个.class文件 而且不是目录  </span></span><br><span class="line">                                    <span class="keyword">if</span> (name.endsWith(<span class="string">".class"</span>) &amp;&amp; !entry.isDirectory()) &#123;  </span><br><span class="line">                                        <span class="comment">//去掉后面的".class" 获取真正的类名  </span></span><br><span class="line">                                        String className = name.substring(packageName.length() + <span class="number">1</span>, name.length() - <span class="number">6</span>);  </span><br><span class="line">                                        <span class="keyword">try</span> &#123;  </span><br><span class="line">                                            <span class="comment">//添加到classes  </span></span><br><span class="line">                                            classes.add(Class.forName(packageName + <span class="string">'.'</span> + className));  </span><br><span class="line">                                        &#125; <span class="keyword">catch</span> (ClassNotFoundException e) &#123;  </span><br><span class="line">                                            e.printStackTrace();  </span><br><span class="line">                                        &#125;  </span><br><span class="line">                                      &#125;  </span><br><span class="line">                                &#125;  </span><br><span class="line">                            &#125;  </span><br><span class="line">                        &#125;  </span><br><span class="line">                    &#125; <span class="keyword">catch</span> (IOException e) &#123;  </span><br><span class="line">                        e.printStackTrace();  </span><br><span class="line">                    &#125;   </span><br><span class="line">                &#125;  </span><br><span class="line">            &#125;  </span><br><span class="line">        &#125; <span class="keyword">catch</span> (IOException e) &#123;  </span><br><span class="line">            e.printStackTrace();  </span><br><span class="line">        &#125;  </span><br><span class="line">         </span><br><span class="line">        <span class="keyword">return</span> classes;  </span><br><span class="line">    &#125;  </span><br><span class="line">      </span><br><span class="line">    <span class="comment">/** </span><br><span class="line">     * 以文件的形式来获取包下的所有Class </span><br><span class="line">     * <span class="doctag">@param</span> packageName </span><br><span class="line">     * <span class="doctag">@param</span> packagePath </span><br><span class="line">     * <span class="doctag">@param</span> recursive </span><br><span class="line">     * <span class="doctag">@param</span> classes </span><br><span class="line">     */</span>  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">findAndAddClassesInPackageByFile</span><span class="params">(String packageName, String packagePath, <span class="keyword">final</span> <span class="keyword">boolean</span> recursive, List&lt;Class&lt;?&gt;&gt; classes)</span></span>&#123;  </span><br><span class="line">        <span class="comment">//获取此包的目录 建立一个File  </span></span><br><span class="line">        File dir = <span class="keyword">new</span> File(packagePath);  </span><br><span class="line">        <span class="comment">//如果不存在或者 也不是目录就直接返回  </span></span><br><span class="line">        <span class="keyword">if</span> (!dir.exists() || !dir.isDirectory()) &#123;  </span><br><span class="line">            <span class="keyword">return</span>;  </span><br><span class="line">        &#125;  </span><br><span class="line">        <span class="comment">//如果存在 就获取包下的所有文件 包括目录  </span></span><br><span class="line">        File[] dirfiles = dir.listFiles(<span class="keyword">new</span> FileFilter() &#123;  </span><br><span class="line">        <span class="comment">//自定义过滤规则 如果可以循环(包含子目录) 或则是以.class结尾的文件(编译好的java类文件)  </span></span><br><span class="line">              <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">accept</span><span class="params">(File file)</span> </span>&#123;  </span><br><span class="line">                <span class="keyword">return</span> (recursive &amp;&amp; file.isDirectory()) || (file.getName().endsWith(<span class="string">".class"</span>));  </span><br><span class="line">              &#125;  </span><br><span class="line">            &#125;);  </span><br><span class="line">        <span class="comment">//循环所有文件  </span></span><br><span class="line">        <span class="keyword">for</span> (File file : dirfiles) &#123;  </span><br><span class="line">            <span class="comment">//如果是目录 则继续扫描  </span></span><br><span class="line">            <span class="keyword">if</span> (file.isDirectory()) &#123;  </span><br><span class="line">                findAndAddClassesInPackageByFile(packageName + <span class="string">"."</span> + file.getName(),  </span><br><span class="line">                                      file.getAbsolutePath(),  </span><br><span class="line">                                      recursive,  </span><br><span class="line">                                      classes);  </span><br><span class="line">            &#125;  </span><br><span class="line">            <span class="keyword">else</span> &#123;  </span><br><span class="line">                <span class="comment">//如果是java类文件 去掉后面的.class 只留下类名  </span></span><br><span class="line">                String className = file.getName().substring(<span class="number">0</span>, file.getName().length() - <span class="number">6</span>);  </span><br><span class="line">                <span class="keyword">try</span> &#123;  </span><br><span class="line">                    <span class="comment">//添加到集合中去  </span></span><br><span class="line">                    classes.add(Class.forName(packageName + <span class="string">'.'</span> + className));  </span><br><span class="line">                &#125; <span class="keyword">catch</span> (ClassNotFoundException e) &#123;  </span><br><span class="line">                    e.printStackTrace();  </span><br><span class="line">                &#125;  </span><br><span class="line">            &#125;  </span><br><span class="line">        &#125;  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><p>到这里只需要extends baseRpc..  就能直接使用了<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Server</span> <span class="keyword">extends</span> <span class="title">BaseRpcServer</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="annotation">@SuppressWarnings</span>(&#123; <span class="string">"rawtypes"</span>, <span class="string">"unchecked"</span> &#125;)</span><br><span class="line">    <span class="annotation">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">registerProcessor</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="comment">// TODO Auto-generated method stub</span></span><br><span class="line"><span class="comment">//      this.addProcessor("BankApi", new BankApi.Processor(i));</span></span><br><span class="line"><span class="comment">//      this.addProcessor("ClassifyApi", new ClassifyApi.Processor(new ClassifyImpl()));</span></span><br><span class="line"><span class="comment">//      this.addProcessor("GroupApi", new GroupApi.Processor(new GroupImpl()));</span></span><br><span class="line"><span class="comment">//      this.addProcessor("SkuTypeApi", new SkuTypeApi.Processor(new SkuTypeImpl()));</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line"><span class="comment">//      BaseRpcConfig brc=new BaseRpcConfig("leon","leon_base_db.ini");</span></span><br><span class="line">        BaseRpcConfig brc=<span class="keyword">new</span> BaseRpcConfig();</span><br><span class="line">        brc.setPort(<span class="number">7911</span>);</span><br><span class="line">            brc.setHost(<span class="string">"localhost"</span>);</span><br><span class="line">        brc.setApiImplPath(<span class="string">"com.leon.impl"</span>);</span><br><span class="line">        </span><br><span class="line">        Server sss = <span class="keyword">new</span> Server();</span><br><span class="line">        sss.init(brc);</span><br><span class="line">        sss.start();</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Client</span> <span class="keyword">extends</span> <span class="title">BaseRpcClient</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line"><span class="comment">//      BaseRpcConfig brc=new BaseRpcConfig("leon","leon_base_db.ini");</span></span><br><span class="line">        BaseRpcConfig brc=<span class="keyword">new</span> BaseRpcConfig();</span><br><span class="line">        brc.setPort(<span class="number">7911</span>);</span><br><span class="line">        brc.setHost(<span class="string">"localhost"</span>);</span><br><span class="line">        </span><br><span class="line">        Client client=<span class="keyword">new</span> Client();</span><br><span class="line">        client.init(brc);</span><br><span class="line"><span class="comment">//        GroupApi.Client ccc1 = client.getApiClient(GroupApi.Client.class, "GroupApi");</span></span><br><span class="line"><span class="comment">//        System.out.println(ccc1.getAllList());</span></span><br><span class="line">        </span><br><span class="line">        BankApi.Client ccc = client.getApiClient(BankApi.Client.class, <span class="string">"BankApi"</span>);</span><br><span class="line">        List&lt;Bank&gt; list = ccc.getAllList();</span><br><span class="line">        <span class="keyword">for</span> (Bank bank : list) &#123;</span><br><span class="line">            System.out.println(bank);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</span>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/thrift/" rel="tag">#thrift</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/04/05/hello-world/" rel="next" title="Hello World">
+                <i class="fa fa-chevron-left"></i> Hello World
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/04/05/thrift-idl-demo/" rel="prev" title="thrift-idl的例子">
+                thrift-idl的例子 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+        </div>
+
+        
+
+
+        
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/04/05/thrift-rpc-demo/"
+           data-title="thrift-rpc的例子" data-url="http://lleon.me/2016/04/05/thrift-rpc-demo/">
+      </div>
+    
+  </div>
+
+
+      </div>
+
+      
+        
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" src="/images/me.jpg" alt="Leon" itemprop="image"/>
+          <p class="site-author-name" itemprop="name">Leon</p>
+        </div>
+        <p class="site-description motion-element" itemprop="description">宁失一子，莫失一先</p>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">5</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          <div class="site-state-item site-state-categories">
+            <a href="/categories">
+              <span class="site-state-item-count">2</span>
+              <span class="site-state-item-name">分类</span>
+              </a>
+          </div>
+
+          <div class="site-state-item site-state-tags">
+            <a href="/tags">
+              <span class="site-state-item-count">3</span>
+              <span class="site-state-item-name">标签</span>
+              </a>
+          </div>
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/huanghuacaili" target="_blank">
+                  
+                    <i class="fa fa-globe"></i> github
+                  
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        <div class="links-of-author motion-element">
+          
+            <p class="site-author-name">友情链接</p>
+            
+              <span class="links-of-author-item">
+                <a href="http://rambone.me" target="_blank">左胖子</a>
+              </span>
+            
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator">
+            <i class="fa fa-angle-double-up"></i>
+          </div>
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#上一篇-thrift-idl-demo"><span class="nav-number">1.</span> <span class="nav-text">上一篇 thrift-idl-demo</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实现接口"><span class="nav-number">2.</span> <span class="nav-text">实现接口</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#初步封装"><span class="nav-number">3.</span> <span class="nav-text">初步封装</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#BaseRpcServer"><span class="nav-number">3.1.</span> <span class="nav-text">BaseRpcServer</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#BaseRpcClient"><span class="nav-number">3.2.</span> <span class="nav-text">BaseRpcClient</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#BaseRpcConfig"><span class="nav-number">3.3.</span> <span class="nav-text">BaseRpcConfig</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#动态代理"><span class="nav-number">3.4.</span> <span class="nav-text">动态代理</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#annotation"><span class="nav-number">4.</span> <span class="nav-text">annotation</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Scan"><span class="nav-number">5.</span> <span class="nav-text">Scan</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ClassUtil"><span class="nav-number">6.</span> <span class="nav-text">ClassUtil</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用"><span class="nav-number">7.</span> <span class="nav-text">使用</span></a></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator">
+            <i class="fa fa-angle-double-down"></i>
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+      
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="icon-next-heart fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Leon</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  
+
+  
+    
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"leon2016"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+    
+     
+
+
+    
+  
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/js/fancy-box.js?v=0.4.5.2"></script>
+
+
+  <script type="text/javascript" src="/js/helpers.js?v=0.4.5.2"></script>
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+<script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+<script type="text/javascript" src="/js/motion.js?v=0.4.5.2" id="motion.global"></script>
+
+
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  
+<script type="text/javascript" src="/js/bootstrap.scrollspy.js?v=0.4.5.2" id="bootstrap.scrollspy.custom"></script>
+
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 1 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    motionMiddleWares.sidebar = function () {
+      var $tocContent = $('.post-toc-content');
+      if (CONFIG.sidebar === 'post') {
+        if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+          displaySidebar();
+        }
+      }
+    };
+  });
+</script>
+
+
+
+  <script type="text/javascript" src="/js/bootstrap.js"></script>
+
+  
+  
+
+  
+  
+
+</body>
+</html>

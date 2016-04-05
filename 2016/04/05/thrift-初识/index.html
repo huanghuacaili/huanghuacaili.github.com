@@ -35,7 +35,7 @@
 <link href="/css/main.css?v=0.4.5.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="hexo," />
+  <meta name="keywords" content="thrift," />
 
 
 
@@ -51,16 +51,16 @@
 
 
 
-<meta name="description" content="使用hexo搭建网站">
+<meta name="description" content="thrift简介">
 <meta property="og:type" content="article">
-<meta property="og:title" content="初试hexo">
-<meta property="og:url" content="http://lleon.me/2016/01/20/初试hexo/index.html">
+<meta property="og:title" content="初识thrift">
+<meta property="og:url" content="http://lleon.me/2016/04/05/thrift-初识/index.html">
 <meta property="og:site_name" content="haolee's blog">
-<meta property="og:description" content="使用hexo搭建网站">
-<meta property="og:updated_time" content="2016-01-21T02:40:43.108Z">
+<meta property="og:description" content="thrift简介">
+<meta property="og:updated_time" content="2016-04-05T02:38:10.362Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="初试hexo">
-<meta name="twitter:description" content="使用hexo搭建网站">
+<meta name="twitter:title" content="初识thrift">
+<meta name="twitter:description" content="thrift简介">
 
 
 
@@ -72,7 +72,7 @@
   };
 </script>
 
-  <title> 初试hexo | haolee's blog </title>
+  <title> 初识thrift | haolee's blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -222,7 +222,7 @@
             
             
               
-                初试hexo
+                初识thrift
               
             
           </h1>
@@ -231,8 +231,8 @@
         <div class="post-meta">
           <span class="post-time">
             发表于
-            <time itemprop="dateCreated" datetime="2016-01-20T17:06:52+08:00" content="2016-01-20">
-              2016-01-20
+            <time itemprop="dateCreated" datetime="2016-04-05T10:22:52+08:00" content="2016-04-05">
+              2016-04-05
             </time>
           </span>
 
@@ -241,8 +241,8 @@
               &nbsp; | &nbsp; 分类于
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/工具/" itemprop="url" rel="index">
-                    <span itemprop="name">工具</span>
+                  <a href="/categories/RPC/" itemprop="url" rel="index">
+                    <span itemprop="name">RPC</span>
                   </a>
                 </span>
 
@@ -257,8 +257,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/01/20/初试hexo/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/01/20/初试hexo/" itemprop="commentsCount"></span>
+                <a href="/2016/04/05/thrift-初识/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/04/05/thrift-初识/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -277,31 +277,35 @@
       
 
       
-        <span itemprop="articleBody"><blockquote>
-<p>hexo的个人理解</p>
-</blockquote>
-<p>Hexo 是一个可以简单快速搭建静态网页的框架</p>
+        <span itemprop="articleBody"><h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>Apache Thrift  是Facebook 开源实现的一种高效的、支持多种编程语言的远程服务调用的框架<br>目前流行的服务调用方式有很多种</p>
+<ul>
+<li>基于 SOAP 消息格式的 Web Service</li>
+<li>基于 JSON 消息格式的 RESTful 服务</li>
+</ul>
+<p>为什么用thrift,thrift的优点有什么呢？</p>
 <blockquote>
-<p>安装<a href="https://hexo.io/zh-cn/docs/" target="_blank" rel="external">hexo</a> </p>
+<p>   Apache Thrift，它采用接口描述语言定义并创建服务，支持可扩展的跨语言服务开发，所包含的代码生成引擎可以在多种语言中，如 C++, Java, Python, PHP, Ruby, Erlang, Perl, Haskell, C#, Cocoa, Smalltalk 等创建高效的、无缝的服务，其传输数据采用二进制格式，相对 XML 和 JSON 体积更小，对于高并发、大数据量和多语言的环境更有优势</p>
 </blockquote>
-<p><a href="https://nodejs.org/en/" target="_blank" rel="external">node.js</a><br><a href="http://git-scm.com/download" target="_blank" rel="external">git</a><br>使用node自己的<code>npm</code>安装</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-cli -g</span><br><span class="line">npm install hexo --save</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>建站</p>
-</blockquote>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">$ hexo init &lt;folder&gt;</span><br><span class="line">$ <span class="built_in">cd</span> &lt;folder&gt;</span><br><span class="line">$ npm install</span><br><span class="line"></span><br><span class="line"><span class="comment">##文件夹结构</span></span><br><span class="line">.</span><br><span class="line">├── _config.yml       <span class="comment">#站点配置文件</span></span><br><span class="line">├── package.json</span><br><span class="line">├── scaffolds</span><br><span class="line">├── <span class="built_in">source</span>            <span class="comment">#存放你自己源代码的地方</span></span><br><span class="line">|   ├── _drafts</span><br><span class="line">|   └── _posts</span><br><span class="line">└── themes            <span class="comment">#主题-通过git bash 直接获取放在这里</span></span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>启动服务</p>
-</blockquote>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server  <span class="comment">#执行后会提示你发布地址`localhost:4000`</span></span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>创建git个人主页</p>
-</blockquote>
-<p>简单说下：<br>    创建一个新的<code>New repository</code>,注意repository的名字是 登录名.github.com ,在<code>setting</code>中创建<code>GitHub Pages</code></p>
-<blockquote>
-<p>git&amp;hexo</p>
-</blockquote>
-<p>配置hexo站点文件<br><figure class="highlight avrasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor"># Deployment</span></span><br><span class="line"><span class="preprocessor">## Docs: http://hexo.io/docs/deployment.html</span></span><br><span class="line"><span class="label">deploy:</span> </span><br><span class="line"><span class="label">type:</span> git</span><br><span class="line"><span class="label">repository:</span> git@github.com:登录名/登录名.github.com.git</span><br><span class="line"><span class="label">branch:</span> gh-pages         <span class="preprocessor">#如果CNAME不起作用就写到master中（我遇到的大坑,配到我的域名,用了两天 才发现在 master中配置CNAME才能正常，但是我朋友是在gh-pages下配置的）</span></span><br><span class="line"><span class="preprocessor">#branch: master	      #真实文件在gh-pages</span></span><br><span class="line"></span><br><span class="line"><span class="preprocessor">#执行</span></span><br><span class="line">hexo deploy</span><br></pre></td></tr></table></figure></p>
+<h3 id="使用thrift简介"><a href="#使用thrift简介" class="headerlink" title="使用thrift简介"></a>使用thrift简介</h3><ul>
+<li>下载<a href="https://thrift.apache.org/download" target="_blank" rel="external">thrift</a></li>
+<li>配置环境thrift环境,方便使用,不配置就写绝对路径</li>
+<li>编写idl中间文件</li>
+<li>thrift  -gen java demo.thrift    (windows下载的thrift.exe,linux 的.sh文件)</li>
+<li>实现生成文件的Iface接口</li>
+<li>编写server</li>
+<li>编写client</li>
+</ul>
+<h3 id="项目引入"><a href="#项目引入" class="headerlink" title="项目引入"></a>项目引入</h3><p>maven<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">groupId</span>&gt;</span>org.apache.thrift<span class="tag">&lt;/<span class="title">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">artifactId</span>&gt;</span>libthrift<span class="tag">&lt;/<span class="title">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">version</span>&gt;</span>0.9.3<span class="tag">&lt;/<span class="title">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>gradle 自行转化，gradle可以配置cmd执行自动解析idl文件到项目，不需要自己copy生成的文件</p>
+<h3 id="IDL中间件简单语法"><a href="#IDL中间件简单语法" class="headerlink" title="IDL中间件简单语法"></a>IDL中间件简单语法</h3><p>Thrift 脚本可定义的数据类型包括以下几种类型：</p>
+<ul>
+<li>基本类型：<br>bool：布尔值，true 或 false，对应 Java 的 boolean<br>byte：8 位有符号整数，对应 Java 的 byte<br>i16：16 位有符号整数，对应 Java 的 short<br>i32：32 位有符号整数，对应 Java 的 int<br>i64：64 位有符号整数，对应 Java 的 long<br>double：64 位浮点数，对应 Java 的 double<br>string：未知编码文本或二进制字符串，对应 Java 的 String</li>
+<li>结构体类型：<br>struct：定义公共的对象，类似于 C 语言中的结构体定义，在 Java 中是一个 JavaBean</li>
+<li>容器类型：<br>list：对应 Java 的 ArrayList<br>set：对应 Java 的 HashSet<br>map：对应 Java 的 HashMap</li>
+<li>异常类型：<br>exception：对应 Java 的 Exception</li>
+<li>服务类型：<br>service：对应服务的类</li>
+</ul>
+<h1 id="idl-demo"><a href="#idl-demo" class="headerlink" title="idl demo"></a>idl demo</h1><p><a href="../thrift-idl-demo/">thrift-idl-demo</a></p>
 </span>
       
     </div>
@@ -310,7 +314,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/hexo/" rel="tag">#hexo</a>
+            <a href="/tags/thrift/" rel="tag">#thrift</a>
           
         </div>
       
@@ -319,13 +323,13 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2016/04/05/thrift-idl-demo/" rel="next" title="thrift-idl的例子">
+                <i class="fa fa-chevron-left"></i> thrift-idl的例子
+              </a>
+            
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/04/05/hello-world/" rel="prev" title="Hello World">
-                Hello World <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -352,8 +356,8 @@
         
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/01/20/初试hexo/"
-           data-title="初试hexo" data-url="http://lleon.me/2016/01/20/初试hexo/">
+      <div class="ds-thread" data-thread-key="2016/04/05/thrift-初识/"
+           data-title="初识thrift" data-url="http://lleon.me/2016/04/05/thrift-初识/">
       </div>
     
   </div>
@@ -460,7 +464,7 @@
               
             
             
-              <p class="post-toc-empty">此文章未包含目录</p>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用thrift简介"><span class="nav-number">2.</span> <span class="nav-text">使用thrift简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#项目引入"><span class="nav-number">3.</span> <span class="nav-text">项目引入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#IDL中间件简单语法"><span class="nav-number">4.</span> <span class="nav-text">IDL中间件简单语法</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#idl-demo"><span class="nav-number"></span> <span class="nav-text">idl demo</span></a></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator">
